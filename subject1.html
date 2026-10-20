@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVJ25EC31 - Probability and Transformation Techniques</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #1e3c72;
+            --secondary: #2a5298;
+            --accent: #00c6ff;
+            --accent-gradient: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Top Navigation Header */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--accent-gradient);
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
+        }
+
+        /* Course Overview Glass Card */
+        .course-header-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            margin-bottom: 30px;
+            border-left: 8px solid #0072ff;
+        }
+
+        .course-badge {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .course-title {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .course-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .meta-item i {
+            color: #0284c7;
+        }
+
+        /* Details Section Panels */
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-heading {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .co-list {
+            list-style: none;
+        }
+
+        .co-list li {
+            padding: 12px 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #38bdf8;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .co-tag {
+            font-weight: 700;
+            color: #0284c7;
+            margin-right: 8px;
+        }
+
+        /* Responsive Table */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            text-align: center;
+        }
+
+        th {
+            background: #1e293b;
+            color: white;
+            padding: 10px;
+            font-weight: 500;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* Module Buttons Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .module-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 25px;
+            text-decoration: none;
+            color: var(--text-dark);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-6px);
+            border-color: #38bdf8;
+            box-shadow: 0 15px 30px rgba(0, 198, 255, 0.3);
+        }
+
+        .module-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #0284c7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .module-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .module-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .module-btn {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        footer {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 40px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Header Nav -->
+        <div class="nav-header">
+            <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Main Portal</a>
+            <span style="color: white; font-size: 0.9rem;">B.E. ECE - III Semester (2025 Scheme)</span>
+        </div>
+
+        <!-- Course Header -->
+        <div class="course-header-card">
+            <span class="course-badge">Course Code: MVJ25EC31</span>
+            <h1 class="course-title">Probability and Transformation Techniques</h1>
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+                Equips students with Discrete & Continuous Probability Distributions, Complex Variables, Fourier Series, Fourier & Z-Transforms, and Statistical Curve Fitting essential for DSP, Communications, and AI algorithms.
+            </p>
+
+            <div class="course-meta">
+                <div class="meta-item"><i class="fa-solid fa-layer-group"></i> <strong>Type:</strong> ASC (4 Credits)</div>
+                <div class="meta-item"><i class="fa-solid fa-clock"></i> <strong>Hours/Week:</strong> 4:0:0 (L:T:P)</div>
+                <div class="meta-item"><i class="fa-solid fa-file-pen"></i> <strong>CIE / SEE:</strong> 50 / 50 Marks</div>
+            </div>
+        </div>
+
+        <!-- Course Outcomes (COs) -->
+        <div class="section-card">
+            <h2 class="section-heading"><i class="fa-solid fa-bullseye"></i> Course Outcomes (COs)</h2>
+            <ul class="co-list">
+                <li><span class="co-tag">CO1:</span> Develop probability distributions of discrete, continuous random variables, and joint probability distributions occurring in digital signal processing, information theory, and design engineering.</li>
+                <li><span class="co-tag">CO2:</span> Understand analytic functions and the application of Bi-linear and Conformal Transformations.</li>
+                <li><span class="co-tag">CO3:</span> Use periodic signals and Fourier series to analyze circuits and communication systems.</li>
+                <li><span class="co-tag">CO4:</span> Apply Fourier Transform and Z-Transform techniques to solve difference equations in engineering.</li>
+                <li><span class="co-tag">CO5:</span> Fit a suitable curve by the method of least squares and determine the lines of regression for statistical data.</li>
+            </ul>
+        </div>
+
+        <!-- CO-PO Mapping Matrix -->
+        <div class="section-card">
+            <h2 class="section-heading"><i class="fa-solid fa-table-cells"></i> CO-PO Mapping Matrix</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CO / PO</th>
+                            <th>PO1</th>
+                            <th>PO2</th>
+                            <th>PO3</th>
+                            <th>PO4</th>
+                            <th>PO5</th>
+                            <th>PO6</th>
+                            <th>PO7</th>
+                            <th>PO8</th>
+                            <th>PO9</th>
+                            <th>PO10</th>
+                            <th>PO11</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>CO1</strong></td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CO2</strong></td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CO3</strong></td>
+                            <td>3</td>
+                            <td>3</td>
+                            <td>1</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CO4</strong></td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CO5</strong></td>
+                            <td>3</td>
+                            <td>3</td>
+                            <td>1</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; text-align: right;">High: 3 | Medium: 2 | Low: 1</p>
+        </div>
+
+        <!-- Module Content Buttons Grid -->
+        <h2 style="color: white; font-size: 1.5rem; margin-bottom: 20px; font-weight: 600;"><i class="fa-solid fa-folder-open"></i> Course Modules & Content Portal</h2>
+
+        <div class="modules-grid">
+
+            <!-- Module 1 -->
+            <a href="subject1_m1.html" class="module-card">
+                <div>
+                    <div class="module-num">Module 1 (12 Hours)</div>
+                    <div class="module-title">Probability Theory</div>
+                    <div class="module-desc">Random variables, PDF, CDF, Binomial, Poisson, Normal, Exponential & Joint Probability Distributions.</div>
+                </div>
+                <div class="module-btn">
+                    Open Module 1 <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Module 2 -->
+            <a href="subject1_m2.html" class="module-card">
+                <div>
+                    <div class="module-num">Module 2 (11 Hours)</div>
+                    <div class="module-title">Complex Variables</div>
+                    <div class="module-desc">Analytic functions, Cauchy-Riemann equations, Milne-Thomson method, Bilinear & Conformal Transformations.</div>
+                </div>
+                <div class="module-btn">
+                    Open Module 2 <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Module 3 -->
+            <a href="subject1_m3.html" class="module-card">
+                <div>
+                    <div class="module-num">Module 3 (11 Hours)</div>
+                    <div class="module-title">Fourier Series</div>
+                    <div class="module-desc">Dirichlet's conditions, Periodic functions (2π & 2c), Half-range Sine/Cosine series, Practical Harmonic Analysis.</div>
+                </div>
+                <div class="module-btn">
+                    Open Module 3 <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Module 4 -->
+            <a href="subject1_m4.html" class="module-card">
+                <div>
+                    <div class="module-num">Module 4 (11 Hours)</div>
+                    <div class="module-title">Fourier & Z-Transforms</div>
+                    <div class="module-desc">Infinite Fourier Sine/Cosine transforms, Z-transforms, Damping/Shifting rules, Difference equations.</div>
+                </div>
+                <div class="module-btn">
+                    Open Module 4 <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Module 5 -->
+            <a href="subject1_m5.html" class="module-card">
+                <div>
+                    <div class="module-num">Module 5 (11 Hours)</div>
+                    <div class="module-title">Statistical & Sampling Theory</div>
+                    <div class="module-desc">Correlation, Lines of regression, Curve fitting ($y=ax+b$), Student's t-distribution, Chi-square distribution.</div>
+                </div>
+                <div class="module-btn">
+                    Open Module 5 <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+
+        </div>
+
+        <footer>
+            IQAC E-Content Portal | Department of Electronics & Communication Engineering
+        </footer>
+
+    </div>
+
+</body>
+</html>

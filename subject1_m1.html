@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Probability Theory | MVJ25EC31</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #1e3c72;
+            --secondary: #2a5298;
+            --accent: #00c6ff;
+            --accent-gradient: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Top Nav Header */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--accent-gradient);
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
+        }
+
+        /* Quick Navigation Sub-Bar */
+        .quick-nav {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 20px;
+            border-radius: 15px;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px);
+            white-space: nowrap;
+        }
+
+        .quick-nav a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .quick-nav a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Main Content Cards */
+        .content-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #0284c7;
+            font-size: 1.15rem;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        p, ul {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Formula Cheat Sheet Box */
+        .cheat-sheet-box {
+            background: #f8fafc;
+            border: 2px dashed #0284c7;
+            border-radius: 16px;
+            padding: 20px 25px;
+            margin: 20px 0;
+        }
+
+        .cheat-sheet-box h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .formula-item {
+            background: white;
+            padding: 12px 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            font-size: 0.88rem;
+            border-left: 4px solid #00c6ff;
+        }
+
+        .formula-item strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* MCQ Section Styling */
+        .mcq-container {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .question-text {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .options-list li {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            border: 1px solid #cbd5e1;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .options-list li:hover {
+            background: #e0f2fe;
+            border-color: #0284c7;
+        }
+
+        .options-list li.correct {
+            background: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #166534;
+            font-weight: 600;
+        }
+
+        .options-list li.incorrect {
+            background: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #991b1b;
+        }
+
+        .explanation {
+            font-size: 0.85rem;
+            color: #0369a1;
+            margin-top: 8px;
+            background: #e0f2fe;
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        /* Scoreboard */
+        .score-banner {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 14px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 198, 255, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 40px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Top Navigation -->
+        <div class="nav-header">
+            <a href="subject1.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Subject Overview</a>
+            <span style="color: white; font-size: 0.9rem;">Module 1: Probability Theory (12 Hours)</span>
+        </div>
+
+        <!-- Quick Jump Navigation -->
+        <div class="quick-nav">
+            <a href="#notes"><i class="fa-solid fa-book-open"></i> Simple Notes</a>
+            <a href="#diagrams"><i class="fa-solid fa-chart-line"></i> Visual Distributions</a>
+            <a href="#cheatsheet"><i class="fa-solid fa-file-lines"></i> Revision Cheat Sheet</a>
+            <a href="#mcqs"><i class="fa-solid fa-list-check"></i> 50 Practice MCQs</a>
+        </div>
+
+        <!-- Simple Notes Section -->
+        <div id="notes" class="content-card">
+            <h2 class="section-title"><i class="fa-solid fa-book-open"></i> Module 1: Comprehensive Study Notes</h2>
+            
+            <h3>1. Random Variables (Discrete & Continuous)</h3>
+            <p>A random variable is a rule or function that assigns a numerical value to each outcome of a random experiment. 
+            <ul>
+                <li><strong>Discrete Random Variable:</strong> Takes countable, distinct values (e.g., number of packet errors in a transmission, coin tosses). Represented by a Probability Mass Function (PMF) $P(X = x)$.</li>
+                <li><strong>Continuous Random Variable:</strong> Takes any value within a continuous interval (e.g., signal voltage, noise amplitude, time to failure). Represented by a Probability Density Function (PDF) $f(x)$.</li>
+            </ul></p>
+
+            <h3>2. Probability Density Function (PDF) & Cumulative Distribution Function (CDF)</h3>
+            <p>
+            <ul>
+                <li><strong>PDF ($f(x)$):</strong> Represents the relative likelihood of a random variable taking a given value. The total area under the PDF curve is always equal to 1 ($\int_{-\infty}^{\infty} f(x)dx = 1$).</li>
+                <li><strong>CDF ($F(x)$):</strong> Represents the probability that the random variable $X$ takes a value less than or equal to $x$ ($F(x) = P(X \le x) = \int_{-\infty}^{x} f(t)dt$). The CDF is a non-decreasing function ranging from 0 to 1.</li>
+            </ul></p>
+
+            <h3>3. Standard Probability Distributions</h3>
+            <p>
+            <ul>
+                <li><strong>Binomial Distribution:</strong> Models discrete success/failure trials (e.g., bit error testing in digital comms). Formula: $P(X=x) = ^nC_x p^x q^{n-x}$. Mean = $np$, Variance = $npq$.</li>
+                <li><strong>Poisson Distribution:</strong> Models rare events occurring over a fixed interval (e.g., number of incoming calls at a switchboard per minute). Formula: $P(X=x) = \frac{e^{-\lambda} \lambda^x}{x!}$. Mean = Variance = $\lambda$.</li>
+                <li><strong>Normal (Gaussian) Distribution:</strong> The most important continuous distribution in engineering, characterized by a bell-shaped curve. Symmetric about mean $\mu$. Formula: $f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}$.</li>
+                <li><strong>Exponential Distribution:</strong> Frequently used in reliability and queuing theory to model time between independent events. Formula: $f(x) = \lambda e^{-\lambda x}$ for $x \ge 0$.</li>
+            </ul></p>
+
+            <h3>4. Joint Probability Distributions</h3>
+            <p>When two random variables $X$ and $Y$ are studied simultaneously, we use Joint PMF / PDF $f(x,y)$. 
+            <ul>
+                <li><strong>Marginal Distributions:</strong> Extracting the probability distribution of a single variable by summing or integrating out the other variable.</li>
+                <li><strong>Independence:</strong> $X$ and $Y$ are statistically independent if and only if their joint distribution equals the product of their individual marginal distributions ($f(x,y) = f_X(x) \cdot f_Y(y)$).</li>
+            </ul></p>
+        </div>
+
+        <!-- Visual Diagrams Section -->
+        <div id="diagrams" class="content-card">
+            <h2 class="section-title"><i class="fa-solid fa-chart-line"></i> Visual Representation & Concept Diagrams</h2>
+            <p>Understanding distributions visually is critical for engineering applications such as noise analysis and signal detection.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div style="background: #f8fafc; padding: 20px; border-radius: 14px; border: 1px solid #cbd5e1; text-align: center;">
+                    <i class="fa-solid fa-bell" style="font-size: 40px; color: #0284c7; margin-bottom: 10px;"></i>
+                    <h4 style="color: var(--primary); margin-bottom: 8px;">Gaussian Bell Curve (Normal PDF)</h4>
+                    <p style="font-size: 0.85rem;">Symmetric bell curve centered at mean $\mu$ with spread dictated by standard deviation $\sigma$. Vital for thermal noise modeling.</p>
+                </div>
+
+                <div style="background: #f8fafc; padding: 20px; border-radius: 14px; border: 1px solid #cbd5e1; text-align: center;">
+                    <i class="fa-solid fa-chart-area" style="font-size: 40px; color: #0284c7; margin-bottom: 10px;"></i>
+                    <h4 style="color: var(--primary); margin-bottom: 8px;">CDF Step / Sigmoidal Growth</h4>
+                    <p style="font-size: 0.85rem;">Monotonically increasing curve starting asymptotically from 0 at $-\infty$ and rising smoothly to 1 at $+\infty$.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revision Cheat Sheet Section -->
+        <div id="cheatsheet" class="content-card">
+            <h2 class="section-title"><i class="fa-solid fa-file-lines"></i> Quick Revision Cheat Sheet</h2>
+            <p>Keep this summary handy right before your Continuous Internal Tests (CIE) and Semester End Examinations (SEE).</p>
+
+            <div class="cheat-sheet-box">
+                <h4><i class="fa-solid fa-bolt"></i> Core Formulas at a Glance</h4>
+                <div class="formula-grid">
+                    <div class="formula-item">
+                        <strong>Total Probability Area</strong>
+                        $\int_{-\infty}^{\infty} f(x)dx = 1 \quad \text{and} \quad \sum P(x) = 1$
+                    </div>
+                    <div class="formula-item">
+                        <strong>Expected Value (Mean $\mu$)</strong>
+                        $E[X] = \sum x \cdot P(x) \quad \text{or} \quad \int x f(x)dx$
+                    </div>
+                    <div class="formula-item">
+                        <strong>Variance ($V[X]$)</strong>
+                        $V[X] = E[X^2] - (E[X])^2$
+                    </div>
+                    <div class="formula-item">
+                        <strong>Binomial Properties</strong>
+                        Mean = $np$, Variance = $npq$, $q = 1-p$
+                    </div>
+                    <div class="formula-item">
+                        <strong>Poisson Properties</strong>
+                        Mean = $\lambda$, Variance = $\lambda$, Std Dev = $\sqrt{\lambda}$
+                    </div>
+                    <div class="formula-item">
+                        <strong>Exponential Mean</strong>
+                        Mean = $\frac{1}{\lambda}$, Variance = $\frac{1}{\lambda^2}$
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 50 MCQs Practice Section -->
+        <div id="mcqs" class="content-card">
+            <h2 class="section-title"><i class="fa-solid fa-list-check"></i> 50 Practice Multiple Choice Questions (MCQs)</h2>
+            <p>Test your conceptual understanding across Module 1 topics. Click an option to check your answer instantly.</p>
+
+            <div class="score-banner" id="scoreDisplay">
+                Your Score: 0 / 50 Correct
+            </div>
+
+            <div id="mcqContainer">
+                <!-- MCQs will be dynamically injected via script -->
+            </div>
+        </div>
+
+        <footer>
+            Module 1 Portal | Probability & Transformation Techniques | Dr. Sohel Rana
+        </footer>
+
+    </div>
+
+    <script>
+        // Array containing 50 robust MCQs for Module 1
+        const mcqData = [
+            { q: "1. What is the total area under any valid Probability Density Function (PDF)?", o: ["0", "0.5", "1", "Infinity"], a: 2, e: "The total probability of all possible outcomes in a sample space is always equal to 1." },
+            { q: "2. For a discrete random variable X, the sum of all probabilities P(X = x) equals:", o: ["0", "1", "Mean", "Variance"], a: 1, e: "Axiom of probability dictates total sum of discrete probabilities equals 1." },
+            { q: "3. The cumulative distribution function F(x) is defined as:", o: ["P(X > x)", "P(X <= x)", "P(X = x)", "Derivative of f(x)"], a: 1, e: "CDF F(x) represents the probability that random variable X is less than or equal to x." },
+            { q: "4. Which of the following cannot be a value of a probability?", o: ["0", "0.5", "1", "-0.2"], a: 3, e: "Probabilities must always lie strictly between 0 and 1 inclusive." },
+            { q: "5. The derivative of the Cumulative Distribution Function F(x) gives:", o: ["Mean", "Variance", "Probability Density Function f(x)", "Expectation"], a: 2, e: "By definition, d/dx [F(x)] = f(x)." },
+            { q: "6. For a binomial distribution with parameters n and p, the mean is given by:", o: ["np", "npq", "sqrt(npq)", "p/n"], a: 0, e: "Mean of a binomial distribution is E[X] = np." },
+            { q: "7. The variance of a binomial distribution is:", o: ["np", "npq", "n^2 p", "pq"], a: 1, e: "Variance V[X] = npq where q = 1 - p." },
+            { q: "8. In a Poisson distribution, the mean and variance are:", o: ["Different", "Equal", "Zero", "Reciprocals"], a: 1, e: "Both mean and variance of a Poisson distribution equal the parameter lambda." },
+            { q: "9. The total area under a Normal distribution curve is:", o: ["0.5", "2", "1", "sqrt(2pi)"], a: 2, e: "Like all PDFs, the total integral under a Normal curve is 1." },
+            { q: "10. A standard normal distribution has a mean and standard deviation of:", o: ["Mean=0, SD=1", "Mean=1, SD=0", "Mean=0, SD=0", "Mean=1, SD=1"], a: 0, e: "Standard normal variable Z has mean 0 and standard deviation 1." },
+            { q: "11. The exponential distribution is often used to model:", o: ["Symmetric errors", "Time between independent rare events", "Discrete coin tosses", "Finite trials"], a: 1, e: "Exponential distribution is memoryless and models waiting times between events." },
+            { q: "12. If X and Y are independent random variables, then E[XY] equals:", o: ["E[X] + E[Y]", "E[X] * E[Y]", "0", "E[X] / E[Y]"], a: 1, e: "For independent variables, expectation of product equals product of expectations." },
+            { q: "13. Covariance between two independent random variables is:", o: ["1", "-1", "0", "Infinity"], a: 2, e: "Independence implies zero covariance (though converse is not always true)." },
+            { q: "14. The probability of an impossible event is:", o: ["1", "0.5", "0", "-1"], a: 2, e: "Impossible events have a probability of 0." },
+            { q: "15. If P(A) = 0.4 and P(B) = 0.5, and A and B are mutually exclusive, P(A U B) is:", o: ["0.2", "0.9", "0.1", "0.45"], a: 1, e: "For mutually exclusive events, P(A U B) = P(A) + P(B) = 0.4 + 0.5 = 0.9." },
+            { q: "16. Conditional probability P(A | B) is defined when:", o: ["P(B) = 0", "P(B) > 0", "P(A) = 0", "P(A) = P(B)"], a: 1, e: "Conditional probability requires denominator P(B) to be strictly greater than zero." },
+            { q: "17. Bayes Theorem relates conditional probabilities:", o: ["P(A|B) and P(B|A)", "P(A U B) and P(A n B)", "Mean and Variance", "PDF and CDF"], a: 0, e: "Bayes theorem inverses conditional probabilities: P(A|B) = [P(B|A)*P(A)] / P(B)." },
+            { q: "18. The expected value of a constant 'c' is:", o: ["0", "1", "c", "Infinity"], a: 2, e: "The expected value of a deterministic constant is the constant itself." },
+            { q: "19. Variance of a constant 'c' multiplied by X, V(cX), is:", o: ["c * V(X)", "c^2 * V(X)", "V(X)", "0"], a: 1, e: "Properties of variance: V(cX) = c^2 * V(X)." },
+            { q: "20. The range of a Cumulative Distribution Function F(x) is:", o: ["(-inf, inf)", "[0, 1]", "(0, 1)", "[ -1, 1 ]"], a: 1, e: "CDF values are probabilities, hence bounded between 0 and 1 inclusive." },
+            { q: "21. Which distribution is characterized by the 'memoryless property'?", o: ["Binomial", "Poisson", "Exponential", "Normal"], a: 2, e: "Exponential distribution is the only continuous memoryless distribution." },
+            { q: "22. If the PDF of X is f(x) = 2x for 0 <= x <= 1, what is P(X <= 0.5)?", o: ["0.25", "0.5", "0.75", "1"], a: 0, e: "Integral from 0 to 0.5 of 2x dx = [x^2] from 0 to 0.5 = 0.25." },
+            { q: "23. The second central moment of a random variable represents its:", o: ["Mean", "Variance", "Skewness", "Kurtosis"], a: 1, e: "Variance is the second moment about the mean." },
+            { q: "24. If E[X] = 5 and E[X^2] = 29, what is the variance V[X]?", o: ["4", "29", "25", "54"], a: 0, e: "V[X] = E[X^2] - (E[X])^2 = 29 - 25 = 4." },
+            { q: "25. Joint probability density function integrated over all space equals:", o: ["0", "0.5", "1", "2"], a: 2, e: "Total probability across multi-dimensional joint space is 1." },
+            { q: "26. Marginal PDF f_X(x) is obtained by integrating joint PDF f(x,y) with respect to:", o: ["x", "y", "both x and y", "neither"], a: 1, e: "Integrating out y leaves the marginal distribution of x." },
+            { q: "27. Two events A and B are independent if P(A n B) equals:", o: ["P(A) + P(B)", "P(A) * P(B)", "0", "P(A) / P(B)"], a: 1, e: "Multiplication rule for independent events: P(A intersection B) = P(A)*P(B)." },
+            { q: "28. The binomial distribution approaches which distribution when n is very large and p is small?", o: ["Normal", "Poisson", "Exponential", "Uniform"], a: 1, e: "Poisson is the limit of binomial distribution for rare events (large n, small p)." },
+            { q: "29. The median of a standard normal distribution is:", o: ["1", "-1", "0", "0.5"], a: 2, e: "Due to symmetry about 0, mean, median, and mode coincide at 0 for standard normal." },
+            { q: "30. What is the sum of probabilities of all mutually exclusive and exhaustive events?", o: ["0", "0.5", "1", "2"], a: 2, e: "Exhaustive events cover the entire sample space, summing to 1." },
+            { q: "31. The coefficient of correlation between two variables is always between:", o: ["]-inf, inf[", "[-1, 1]", "[0, 1]", "[0, inf["], a: 1, e: "Correlation coefficient r always lies between -1 and +1." },
+            { q: "32. A discrete random variable takes values: 1, 2, 3 with equal probability. Its expected value is:", o: ["1", "2", "3", "2.5"], a: 1, e: "E[X] = (1 + 2 + 3)/3 = 6/3 = 2." },
+            { q: "33. If V[X] = 9, what is the standard deviation of X?", o: ["3", "-3", "9", "81"], a: 0, e: "Standard deviation is the square root of variance: sqrt(9) = 3." },
+            { q: "34. Which mathematical operation is used to find the continuous expected value?", o: ["Summation", "Integration", "Differentiation", "Division"], a: 1, e: "Expectation for continuous RVs uses definite integration." },
+            { q: "35. If P(A|B) = P(A), then events A and B are:", o: ["Mutually exclusive", "Dependent", "Statistically Independent", "Complementary"], a: 2, e: "Conditioning on B does not alter probability of A if independent." },
+            { q: "36. The probability of the sample space S itself, P(S), is:", o: ["0", "0.5", "1", "Undefined"], a: 2, e: "The certainty event (sample space) has probability 1." },
+            { q: "37. What type of random variable is the height of engineering students?", o: ["Discrete", "Continuous", "Binomial", "Poisson"], a: 1, e: "Height can take any real value in an interval, making it continuous." },
+            { q: "38. For an exponential distribution with parameter lambda = 2, the mean is:", o: ["2", "0.5", "4", "0.25"], a: 1, e: "Mean of exponential distribution is 1/lambda = 1/2 = 0.5." },
+            { q: "39. The number of customer arrivals per hour at a router follows which distribution?", o: ["Normal", "Binomial", "Poisson", "Uniform"], a: 2, e: "Arrival processes over time intervals are classic applications of Poisson distribution." },
+            { q: "40. If events A and B are mutually exclusive, can they be independent?", o: ["Yes", "No, unless one has probability 0", "Always", "Only if P(A)=P(B)"], a: 1, e: "Mutually exclusive events cannot be independent because knowing one occurred makes the other impossible (P=0)." },
+            { q: "41. The expected value of a sum of random variables equals:", o: ["Product of expectations", "Sum of individual expectations", "Zero", "Sum of variances"], a: 1, e: "Linearity of expectation: E[X + Y] = E[X] + E[Y] always holds true." },
+            { q: "42. The normal distribution curve is asymptotic to which axis?", o: ["Y-axis", "X-axis", "Both axes", "Neither"], a: 1, e: "The tails of the bell curve approach the horizontal x-axis asymptotically." },
+            { q: "43. If a fair coin is tossed 3 times, what is the probability of getting exactly 3 heads?", o: ["1/8", "3/8", "1/2", "1/4"], a: 0, e: "(1/2)^3 = 1/8." },
+            { q: "44. The standardized variable Z is calculated as:", o: ["(X - mu) / sigma", "(X + mu) / sigma", "X * sigma", "sigma / X"], a: 0, e: "Z-score formula: subtract mean and divide by standard deviation." },
+            { q: "45. Which theorem justifies why the Normal distribution appears so frequently in practice?", o: ["Bayes Theorem", "Central Limit Theorem", "Uniqueness Theorem", "Divergence Theorem"], a: 1, e: "Central Limit Theorem states sum of independent RVs tends toward a normal distribution." },
+            { q: "46. If F(x) is the CDF, what is P(a < X <= b)?", o: ["F(b) - F(a)", "F(a) - F(b)", "F(b) * F(a)", "F(a) + F(b)"], a: 0, e: "Probability in an interval [a, b] is F(b) minus F(a)." },
+            { q: "47. The probability mass function (PMF) is applicable to:", o: ["Continuous variables", "Discrete variables", "All variables", "Complex variables"], a: 1, e: "PMF is used exclusively for discrete random variables." },
+            { q: "48. If variance of X is 5, what is the variance of X + 10?", o: ["15", "5", "25", "0"], a: 1, e: "Adding a constant shifts the mean but does not affect the spread (variance)." },
+            { q: "49. What is the skewness of a standard normal distribution?", o: ["1", "-1", "0", "0.5"], a: 2, e: "Standard normal distribution is perfectly symmetric, hence skewness is 0." },
+            { q: "50. In reliability engineering, the probability that a system survives beyond time t is called:", o: ["Failure function", "Reliability / Survival function", "PDF", "CDF"], a: 1, e: "Reliability function R(t) = 1 - F(t) represents survival probability." }
+        ];
+
+        let userScore = 0;
+        const answeredQuestions = new Set();
+
+        function renderMCQs() {
+            const container = document.getElementById('mcqContainer');
+            container.innerHTML = '';
+
+            mcqData.forEach((item, index) => {
+                const mcqDiv = document.createElement('div');
+                mcqDiv.className = 'mcq-container';
+                mcqDiv.id = `mcq-${index}`;
+
+                let optionsHtml = '';
+                item.o.forEach((opt, optIdx) => {
+                    optionsHtml += `<li onclick="checkAnswer(${index}, ${optIdx})">${opt}</li>`;
+                });
+
+                mcqDiv.innerHTML = `
+                    <div class="question-text">${item.q}</div>
+                    <ul class="options-list" id="options-${index}">${optionsHtml}</ul>
+                    <div class="explanation" id="exp-${index}"><i class="fa-solid fa-circle-info"></i> <strong>Explanation:</strong> ${item.e}</div>
+                `;
+                container.appendChild(mcqDiv);
+            });
+        }
+
+        function checkAnswer(qIdx, selectedOpt) {
+            if (answeredQuestions.has(qIdx)) return; // prevent multiple clicks
+            answeredQuestions.add(qIdx);
+
+            const item = mcqData[qIdx];
+            const optionsList = document.getElementById(`options-${qIdx}`).children;
+            const expDiv = document.getElementById(`exp-${qIdx}`);
+
+            // Highlight correct and incorrect options
+            for (let i = 0; i < optionsList.length; i++) {
+                if (i === item.a) {
+                    optionsList[i].classList.add('correct');
+                } else if (i === selectedOpt) {
+                    optionsList[i].classList.add('incorrect');
+                }
+                optionsList[i].style.cursor = 'default';
+            }
+
+            // Show explanation
+            expDiv.style.display = 'block';
+
+            // Update score
+            if (selectedOpt === item.a) {
+                userScore++;
+            }
+
+            document.getElementById('scoreDisplay').innerText = `Your Score: ${userScore} / 50 Correct`;
+        }
+
+        // Initialize MCQ rendering on page load
+        window.onload = renderMCQs;
+    </script>
+
+</body>
+</html>
